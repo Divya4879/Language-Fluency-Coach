@@ -1,6 +1,17 @@
-# English Fluency Mastery Coach
+# 🎙️ Speak Reflect Improve
 
-An AI-powered English fluency coaching platform that provides comprehensive speech analysis and personalized feedback to help users improve their English speaking skills.
+Speak naturally and let our AI analyze your English proficiency across all areas
+
+Check out my project's snapshots here:-
+
+<img width="1920" height="1386" alt="screencapture-127-0-0-1-5000-2025-07-28-05_40_34" src="https://github.com/user-attachments/assets/978e2d92-260b-41da-b3c8-a15650273258" />
+
+<img width="1920" height="1677" alt="image" src="https://github.com/user-attachments/assets/5252ce6a-264c-4126-8b15-28f589fb63e7" />
+
+
+Check it out here(live version) :- [Speak Reflect Improve](https://english-fluency-coach.onrender.com)
+
+---
 
 ## Features
 
@@ -16,21 +27,14 @@ An AI-powered English fluency coaching platform that provides comprehensive spee
 - **CEFR Level Assessment**: A1, A2, B1, B2, C1, C2 level determination
 - **Overall Grade**: 1-10 scoring system with detailed explanations
 - **Actionable Feedback**: Specific improvement recommendations
-- **Progress Tracking**: Monitor improvement over time
-
-### 🎯 Practice Modes
-- **Conversation Practice**: Natural conversation on various topics
-- **Pronunciation Training**: Specific sound and pronunciation pattern work
-- **Vocabulary Building**: Learn and practice new words in context
-- **Storytelling**: Narrative skills and descriptive language practice
-- **Presentation Skills**: Formal speaking and presentation abilities
-- **Song Analysis**: Pronunciation and meaning analysis in English songs
 
 ### 🤖 AI-Powered Coaching
 - **Real-time Feedback**: Immediate corrections and suggestions
 - **Personalized Tips**: Customized improvement strategies
 - **Cultural Context**: Natural expressions and cultural nuances
 - **Encouragement**: Motivational feedback to boost confidence
+
+---
 
 ## Technology Stack
 
@@ -42,6 +46,8 @@ An AI-powered English fluency coaching platform that provides comprehensive spee
 - **Styling**: Custom CSS with dark green theme
 - **Security**: HTTPS with self-signed certificates for microphone access
 
+---
+
 ## Setup Instructions
 
 ### Prerequisites
@@ -51,7 +57,7 @@ An AI-powered English fluency coaching platform that provides comprehensive spee
 
 ### 1. Clone and Setup
 ```bash
-cd /home/divya/english-fluency-coach
+cd /home/divya/Language-Fluency-Coach
 pip install -r requirements.txt
 ```
 
@@ -93,6 +99,8 @@ The application will:
 2. Sign up and get your API key
 3. Add the key to your configuration file
 
+---
+
 ## Usage Guide
 
 ### Taking an Assessment
@@ -103,14 +111,6 @@ The application will:
    - **Topic-Based Assessment**: Focused evaluation on specific topics
 3. Click the microphone button and speak naturally
 4. Review your detailed analysis and recommendations
-
-### Practice Sessions
-1. Navigate to the Practice section
-2. Select a practice type (conversation, pronunciation, vocabulary, etc.)
-3. Choose your level (beginner, intermediate, advanced)
-4. Follow the practice prompt and speak
-5. Get personalized coaching feedback
-6. Continue with new prompts or change practice types
 
 ### Understanding Your Results
 
@@ -124,6 +124,8 @@ The application will:
 - **A1-A2**: Basic user (Beginner to Elementary)
 - **B1-B2**: Independent user (Intermediate to Upper-Intermediate)
 - **C1-C2**: Proficient user (Advanced to Proficient)
+
+---
 
 ## Features in Detail
 
@@ -146,6 +148,8 @@ The application will:
 - **Practice Suggestions**: Customized exercises for improvement
 - **Encouragement**: Motivational messages and progress recognition
 
+---
+
 ## Troubleshooting
 
 ### Microphone Issues
@@ -166,6 +170,8 @@ The application will:
 - Ensure stable internet connection for processing
 - Use a good quality microphone if available
 
+---
+
 ## Browser Compatibility
 - **Chrome**: Full support (recommended)
 - **Firefox**: Full support
@@ -173,11 +179,15 @@ The application will:
 - **Edge**: Full support
 - **Mobile browsers**: Limited support (microphone access varies)
 
+---
+
 ## Security Notes
 - The application uses HTTPS with self-signed certificates
 - Audio data is processed securely and not stored permanently
 - API keys should be kept confidential
 - Temporary audio files are automatically cleaned up
+
+---
 
 ## Development
 
@@ -204,21 +214,77 @@ english-fluency-coach/
 └── temp/                 # Temporary audio files
 ```
 
-### Extending the Application
-- Add new practice types in `fluency_coach.py`
-- Extend analysis capabilities in `english_analyzer.py`
-- Customize UI themes in `style.css`
-- Add new assessment types in the main application
+---
+
+## 🌐 Render Deployment - Complete Guide
+
+### Step 1: Create Render Account
+
+1. **Visit Render**: Go to [render.com](https://render.com)
+2. **Sign Up**: Click "Get Started" → "Sign up with GitHub" (recommended)
+3. **Authorize GitHub**: Allow Render to access your repositories
+4. **Verify Email**: Check your email and verify your account
+
+### Step 2: Prepare Your Repository
+
+### Step 3: Connect GitHub Repository
+
+1. **Login to Render Dashboard**: Go to [dashboard.render.com](https://dashboard.render.com)
+2. **New Web Service**: Click "New +" → "Web Service"
+3. **Connect Repository**: 
+   - If first time: Click "Connect GitHub" → Authorize Render
+   - Select your `Academic-Coach` repository
+   - Click "Connect"
+
+### Step 4: Configure Web Service
+
+#### Basic Configuration:
+- **Name**: `Academic-Coach` (or your preferred name)
+- **Region**: Choose closest to your users (e.g., Oregon, Frankfurt, Singapore)
+- **Branch**: `main` (or your default branch)
+- **Root Directory**: Leave blank (uses repository root)
+
+#### Build & Deploy Settings:
+- **Runtime**: `Python 3`
+- **Build Command**: 
+  ```bash
+  pip install -r requirements.txt
+  ```
+- **Start Command**: 
+  ```bash
+  gunicorn app:app
+  ```
+
+#### Advanced Settings:
+- **Instance Type**: `Free` (for testing) or `Starter` ($7/month for production)
+- **Auto-Deploy**: `Yes` (deploys automatically on git push)
+
+### Step 5: Environment Variables
+
+In the **Environment** section, add these variables:
+
+| Variable Name | Value | Notes |
+|---------------|-------|-------|
+| `GROQ_API_KEY` | `gsk_your-actual-groq-key` | Get from [console.groq.com](https://console.groq.com) |
+| `ASSEMBLYAI_API_KEY` | `your-actual-assemblyai-key` | Get from [assemblyai.com](https://www.assemblyai.com) |
+
+**To add environment variables:**
+1. Scroll to "Environment Variables" section
+2. Click "Add Environment Variable"
+3. Enter key and value
+4. Click "Save Changes"
+
+### Step 6: Deploy
+
+1. **Review Settings**: Double-check all configurations
+2. **Create Web Service**: Click "Create Web Service"
+3. **Monitor Build**: Watch the build logs in real-time
+4. **Wait for Deployment**: First deployment takes 2-5 minutes
+   
+---
 
 ## License
 This project is for educational and personal use. Please respect API terms of service for Groq and AssemblyAI.
-
-## Support
-For issues and questions:
-1. Check the troubleshooting section
-2. Review console logs for error messages
-3. Verify API key configuration
-4. Ensure proper browser permissions
 
 ---
 
