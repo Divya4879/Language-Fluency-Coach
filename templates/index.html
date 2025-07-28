@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Fluency Mastery Coach</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas"></i>
+                <span>🎙️ Speak Reflect Improve</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#assessment" class="nav-link">Assessment</a>
+                <a href="#practice" class="nav-link">Practice</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h2 class="hero-title">Real-time AI feedback to elevate your speaking skills</h2>
+                    <p class="hero-subtitle">
+                        Get professional-grade feedback on pronunciation, vocabulary, grammar, and fluency. 
+                        Improve your English speaking skills with our AI-powered personal tutor.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" id="startAssessmentBtn">
+                            <i class="fas fa-play"></i>
+                            Start Assessment
+                        </button>
+                        <button class="btn btn-secondary" id="startPracticeBtn">
+                            <i class="fas fa-dumbbell"></i>
+                            Practice Now
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-features">
+                    <div class="feature-card">
+                        <i class="fas fa-brain"></i>
+                        <h3>Professional AI Analysis</h3>
+                        <p>Comprehensive evaluation of your English skills with detailed improvement plans</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-user-graduate"></i>
+                        <h3>Personal Tutor</h3>
+                        <p>Get personalized coaching and actionable feedback like a professional English tutor</p>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-graduation-cap"></i>
+                        <h3>Structured Learning</h3>
+                        <p>Customized practice exercises and improvement strategies for your specific needs</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Assessment Section -->
+        <section id="assessment" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-clipboard-check"></i> English Proficiency Assessment</h2>
+                    <p>Speak naturally and let our AI analyze your English proficiency across all areas</p>
+                </div>
+
+                <div class="assessment-container">
+                    <div class="assessment-card">
+                        <div class="assessment-type">
+                            <h3>Quick Assessment</h3>
+                            <p>2-3 minute speaking test for overall proficiency</p>
+                            <button class="btn btn-primary" id="quickAssessmentBtn">
+                                <i class="fas fa-microphone"></i>
+                                Start Quick Test
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="assessment-card">
+                        <div class="assessment-type">
+                            <h3>Comprehensive Assessment</h3>
+                            <p>5-7 minute detailed analysis of all language skills</p>
+                            <button class="btn btn-primary" id="comprehensiveAssessmentBtn">
+                                <i class="fas fa-microphone-alt"></i>
+                                Start Full Test
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="assessment-card">
+                        <div class="assessment-type">
+                            <h3>Topic-Based Assessment</h3>
+                            <p>Speak about a specific topic for targeted feedback</p>
+                            <div class="topic-selector">
+                                <select id="assessmentTopic" class="form-select">
+                                    <option value="general">General Conversation</option>
+                                    <option value="work">Work & Career</option>
+                                    <option value="travel">Travel & Culture</option>
+                                    <option value="technology">Technology</option>
+                                    <option value="education">Education</option>
+                                    <option value="environment">Environment</option>
+                                </select>
+                                <button class="btn btn-primary" id="topicAssessmentBtn">
+                                    <i class="fas fa-comments"></i>
+                                    Start Topic Test
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recording Interface -->
+                <div id="recordingInterface" class="recording-interface hidden">
+                    <div class="recording-card">
+                        <div class="recording-header">
+                            <h3 id="recordingTitle">English Assessment</h3>
+                            <p id="recordingInstructions">Click the microphone to start recording</p>
+                        </div>
+                        
+                        <div class="recording-controls">
+                            <button id="recordBtn" class="record-btn">
+                                <i class="fas fa-microphone"></i>
+                                <span>Start Recording</span>
+                            </button>
+                            <div id="recordingStatus" class="recording-status hidden">
+                                <div class="recording-indicator">
+                                    <div class="pulse"></div>
+                                    <span>Recording...</span>
+                                </div>
+                                <div class="recording-timer">00:00</div>
+                            </div>
+                        </div>
+
+                        <div id="transcriptionResult" class="transcription-result hidden">
+                            <h4>Your Speech:</h4>
+                            <div id="transcriptionText" class="transcription-text"></div>
+                        </div>
+
+                        <div class="recording-actions">
+                            <button id="retryBtn" class="btn btn-secondary hidden">
+                                <i class="fas fa-redo"></i>
+                                Try Again
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Results -->
+                <div id="analysisResults" class="analysis-results hidden">
+                    <div class="results-header">
+                        <h3><i class="fas fa-user-graduate"></i> Professional English Assessment Report</h3>
+                        <div class="assessment-summary">
+                            <div class="level-badge">
+                                <span class="level-text" id="cefrLevel">B2</span>
+                                <span class="level-description" id="levelDescription">Upper Intermediate</span>
+                            </div>
+                            <div class="overall-assessment">
+                                <div class="grade-display" id="overallGrade">8.2</div>
+                                <span class="grade-context">out of 10</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Detailed Professional Analysis -->
+                    <div class="professional-analysis">
+                        
+                        <!-- Pronunciation Analysis -->
+                        <div class="analysis-section">
+                            <div class="section-header">
+                                <i class="fas fa-volume-up"></i>
+                                <h4>Pronunciation & Phonetics</h4>
+                            </div>
+                            <div class="analysis-content">
+                                <div class="feedback-text" id="pronunciationAnalysis">
+                                    Your pronunciation demonstrates good clarity with consistent vowel sounds. Focus on improving consonant clusters and word stress patterns for enhanced native-like delivery.
+                                </div>
+                                <div class="improvement-plan">
+                                    <h5><i class="fas fa-target"></i> Improvement Plan</h5>
+                                    <ul id="pronunciationPlan">
+                                        <li>Practice tongue twisters daily for 10 minutes to improve articulation</li>
+                                        <li>Record yourself reading news articles and compare with native speakers</li>
+                                        <li>Focus on stress patterns in multi-syllable words</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Vocabulary Analysis -->
+                        <div class="analysis-section">
+                            <div class="section-header">
+                                <i class="fas fa-book-open"></i>
+                                <h4>Vocabulary & Lexical Range</h4>
+                            </div>
+                            <div class="analysis-content">
+                                <div class="feedback-text" id="vocabularyAnalysis">
+                                    You demonstrate a solid intermediate vocabulary with appropriate word choices. To reach advanced level, incorporate more sophisticated expressions and idiomatic language.
+                                </div>
+                                <div class="vocabulary-breakdown">
+                                    <div class="vocab-category">
+                                        <span class="category-label">Advanced Words Used:</span>
+                                        <div class="word-list" id="advancedWords">demonstrate, sophisticated, comprehensive</div>
+                                    </div>
+                                    <div class="vocab-category">
+                                        <span class="category-label">Suggested Upgrades:</span>
+                                        <div class="word-suggestions" id="wordSuggestions">
+                                            <span class="suggestion">good → excellent/outstanding</span>
+                                            <span class="suggestion">big → substantial/significant</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="improvement-plan">
+                                    <h5><i class="fas fa-target"></i> Vocabulary Enhancement Plan</h5>
+                                    <ul id="vocabularyPlan">
+                                        <li>Learn 5 advanced synonyms daily and use them in sentences</li>
+                                        <li>Study collocations and phrasal verbs in context</li>
+                                        <li>Read academic articles in your field of interest</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grammar Analysis -->
+                        <div class="analysis-section">
+                            <div class="section-header">
+                                <i class="fas fa-spell-check"></i>
+                                <h4>Grammar & Sentence Structure</h4>
+                            </div>
+                            <div class="analysis-content">
+                                <div class="feedback-text" id="grammarAnalysis">
+                                    Your grammar foundation is strong with accurate basic structures. Work on complex sentence formation and advanced tense usage for more sophisticated expression.
+                                </div>
+                                <div class="grammar-breakdown">
+                                    <div class="grammar-strengths">
+                                        <h6><i class="fas fa-check-circle"></i> Grammar Strengths</h6>
+                                        <ul id="grammarStrengths">
+                                            <li>Accurate present and past tense usage</li>
+                                            <li>Proper subject-verb agreement</li>
+                                        </ul>
+                                    </div>
+                                    <div class="grammar-areas">
+                                        <h6><i class="fas fa-exclamation-triangle"></i> Areas for Improvement</h6>
+                                        <ul id="grammarAreas">
+                                            <li>Conditional sentences (if-clauses)</li>
+                                            <li>Complex sentence connectors</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="improvement-plan">
+                                    <h5><i class="fas fa-target"></i> Grammar Improvement Plan</h5>
+                                    <ul id="grammarPlan">
+                                        <li>Practice conditional sentences with real-life scenarios</li>
+                                        <li>Study advanced connectors (furthermore, nevertheless, consequently)</li>
+                                        <li>Write complex sentences daily and get feedback</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Fluency Analysis -->
+                        <div class="analysis-section">
+                            <div class="section-header">
+                                <i class="fas fa-stream"></i>
+                                <h4>Fluency & Natural Flow</h4>
+                            </div>
+                            <div class="analysis-content">
+                                <div class="feedback-text" id="fluencyAnalysis">
+                                    Your speech flows naturally with minimal hesitation. Reduce filler words and work on smoother transitions between ideas for enhanced fluency.
+                                </div>
+                                <div class="fluency-metrics">
+                                    <div class="metric">
+                                        <span class="metric-label">Speaking Rate:</span>
+                                        <span class="metric-value" id="speakingRate">145 words/minute</span>
+                                        <span class="metric-note">(Optimal: 150-160)</span>
+                                    </div>
+                                    <div class="metric">
+                                        <span class="metric-label">Filler Words:</span>
+                                        <span class="metric-value" id="fillerCount">8 instances</span>
+                                        <span class="metric-note">(um, uh, like)</span>
+                                    </div>
+                                </div>
+                                <div class="improvement-plan">
+                                    <h5><i class="fas fa-target"></i> Fluency Enhancement Plan</h5>
+                                    <ul id="fluencyPlan">
+                                        <li>Practice speaking without filler words for 5 minutes daily</li>
+                                        <li>Use transition phrases to connect ideas smoothly</li>
+                                        <li>Record yourself and identify hesitation patterns</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Overall Recommendations -->
+                        <div class="analysis-section recommendations">
+                            <div class="section-header">
+                                <i class="fas fa-lightbulb"></i>
+                                <h4>Professional Recommendations</h4>
+                            </div>
+                            <div class="analysis-content">
+                                <div class="recommendation-priority">
+                                    <h5><i class="fas fa-star"></i> Priority Focus Areas</h5>
+                                    <div class="priority-list" id="priorityAreas">
+                                        <div class="priority-item">
+                                            <span class="priority-number">1</span>
+                                            <div class="priority-content">
+                                                <strong>Advanced Vocabulary Integration</strong>
+                                                <p>Incorporate sophisticated vocabulary naturally in daily conversations</p>
+                                            </div>
+                                        </div>
+                                        <div class="priority-item">
+                                            <span class="priority-number">2</span>
+                                            <div class="priority-content">
+                                                <strong>Complex Grammar Structures</strong>
+                                                <p>Master conditional sentences and advanced connectors</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="study-plan">
+                                    <h5><i class="fas fa-calendar-alt"></i> 30-Day Study Plan</h5>
+                                    <div class="study-timeline">
+                                        <div class="timeline-item">
+                                            <span class="timeline-period">Week 1-2</span>
+                                            <div class="timeline-content">Focus on pronunciation drills and vocabulary expansion</div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <span class="timeline-period">Week 3-4</span>
+                                            <div class="timeline-content">Practice complex grammar and fluency exercises</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="next-level">
+                                    <h5><i class="fas fa-arrow-up"></i> Path to Next Level (C1)</h5>
+                                    <div class="next-level-content" id="nextLevelPath">
+                                        <p>To reach C1 (Advanced) level, focus on nuanced expression, cultural references, and sophisticated argumentation. Estimated timeline: 3-6 months with consistent practice.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="results-actions">
+                        <button class="btn btn-primary" id="goToPracticeBtn">
+                            <i class="fas fa-dumbbell"></i>
+                            Start Targeted Practice
+                        </button>
+                        <button class="btn btn-secondary" id="retakeAssessmentBtn">
+                            <i class="fas fa-redo"></i>
+                            Retake Assessment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Practice Section -->
+        <section id="practice" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2><i class="fas fa-dumbbell"></i> Personalized Practice Sessions</h2>
+                    <p>Choose your practice focus and receive professional coaching tailored to your needs</p>
+                </div>
+
+                <div class="practice-categories">
+                    <div class="practice-category" data-practice-type="conversation">
+                        <div class="category-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>Conversation Mastery</h3>
+                            <p>Develop natural conversation skills with topic-based discussions and real-world scenarios</p>
+                            <div class="category-features">
+                                <span class="feature-tag">Natural Flow</span>
+                                <span class="feature-tag">Topic Discussions</span>
+                                <span class="feature-tag">Cultural Context</span>
+                            </div>
+                        </div>
+                        <div class="category-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="practice-category" data-practice-type="pronunciation">
+                        <div class="category-icon">
+                            <i class="fas fa-volume-up"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>Pronunciation Perfection</h3>
+                            <p>Master English sounds, stress patterns, and intonation for clear, confident speech</p>
+                            <div class="category-features">
+                                <span class="feature-tag">Sound Training</span>
+                                <span class="feature-tag">Stress Patterns</span>
+                                <span class="feature-tag">Intonation</span>
+                            </div>
+                        </div>
+                        <div class="category-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="practice-category" data-practice-type="vocabulary">
+                        <div class="category-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>Advanced Vocabulary</h3>
+                            <p>Expand your lexical range with sophisticated words, idioms, and professional expressions</p>
+                            <div class="category-features">
+                                <span class="feature-tag">Academic Words</span>
+                                <span class="feature-tag">Idioms</span>
+                                <span class="feature-tag">Collocations</span>
+                            </div>
+                        </div>
+                        <div class="category-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="practice-category" data-practice-type="storytelling">
+                        <div class="category-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>Narrative Excellence</h3>
+                            <p>Develop storytelling skills with descriptive language and engaging narrative techniques</p>
+                            <div class="category-features">
+                                <span class="feature-tag">Descriptive Language</span>
+                                <span class="feature-tag">Story Structure</span>
+                                <span class="feature-tag">Engagement</span>
+                            </div>
+                        </div>
+                        <div class="category-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="practice-category" data-practice-type="presentation">
+                        <div class="category-icon">
+                            <i class="fas fa-presentation"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>Professional Presentation</h3>
+                            <p>Master formal speaking skills for business presentations and academic discussions</p>
+                            <div class="category-features">
+                                <span class="feature-tag">Formal Language</span>
+                                <span class="feature-tag">Structure</span>
+                                <span class="feature-tag">Confidence</span>
+                            </div>
+                        </div>
+                        <div class="category-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+
+                    <div class="practice-category" data-practice-type="song_analysis">
+                        <div class="category-icon">
+                            <i class="fas fa-music"></i>
+                        </div>
+                        <div class="category-content">
+                            <h3>Musical Language Learning</h3>
+                            <p>Improve pronunciation and cultural understanding through English songs and lyrics</p>
+                            <div class="category-features">
+                                <span class="feature-tag">Rhythm</span>
+                                <span class="feature-tag">Cultural Context</span>
+                                <span class="feature-tag">Pronunciation</span>
+                            </div>
+                        </div>
+                        <div class="category-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhanced Practice Interface -->
+                <div id="practiceInterface" class="practice-workspace hidden">
+                    <div class="workspace-header">
+                        <div class="workspace-title">
+                            <h3 id="practiceTitle">Practice Session</h3>
+                            <div class="session-info">
+                                <span class="session-type" id="sessionType">Conversation Practice</span>
+                                <span class="session-level" id="sessionLevel">Intermediate</span>
+                            </div>
+                        </div>
+                        <div class="workspace-controls">
+                            <div class="control-group">
+                                <label for="practiceLevel">Proficiency Level</label>
+                                <select id="practiceLevel" class="form-select">
+                                    <option value="beginner">Beginner (A1-A2)</option>
+                                    <option value="intermediate" selected>Intermediate (B1-B2)</option>
+                                    <option value="advanced">Advanced (C1-C2)</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label for="practiceTopic">Focus Topic</label>
+                                <select id="practiceTopic" class="form-select">
+                                    <option value="general">General Discussion</option>
+                                    <option value="work">Professional/Work</option>
+                                    <option value="travel">Travel & Culture</option>
+                                    <option value="technology">Technology & Innovation</option>
+                                    <option value="education">Education & Learning</option>
+                                    <option value="environment">Environment & Society</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-content">
+                        <div id="practicePrompt" class="practice-prompt-card">
+                            <div class="prompt-header">
+                                <h4><i class="fas fa-lightbulb"></i> Your Practice Challenge</h4>
+                                <button id="getNewPromptBtn" class="btn-refresh">
+                                    <i class="fas fa-refresh"></i>
+                                    New Challenge
+                                </button>
+                            </div>
+                            <div class="prompt-content">
+                                <div id="promptText" class="prompt-text">
+                                    Loading your personalized practice challenge...
+                                </div>
+                                <div id="promptInstructions" class="prompt-instructions">
+                                    <i class="fas fa-info-circle"></i>
+                                    Instructions will appear here...
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="recording-section">
+                            <div class="recording-controls-enhanced">
+                                <button id="practiceRecordBtn" class="record-btn-enhanced">
+                                    <div class="btn-icon">
+                                        <i class="fas fa-microphone"></i>
+                                    </div>
+                                    <div class="btn-content">
+                                        <span class="btn-text">Start Speaking</span>
+                                        <span class="btn-subtext">Click to begin recording</span>
+                                    </div>
+                                </button>
+                                <div class="recording-status-enhanced hidden" id="practiceRecordingStatus">
+                                    <div class="status-indicator">
+                                        <div class="pulse-ring"></div>
+                                        <div class="pulse-dot"></div>
+                                    </div>
+                                    <div class="status-text">
+                                        <span>Recording in progress...</span>
+                                        <span class="timer" id="practiceTimer">00:00</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="practiceTranscription" class="transcription-card hidden">
+                            <div class="card-header">
+                                <h4><i class="fas fa-file-alt"></i> Your Response</h4>
+                            </div>
+                            <div class="transcription-content">
+                                <div id="practiceTranscriptionText" class="transcription-text-enhanced"></div>
+                                <div class="transcription-actions">
+                                    <button id="getCoachingBtn" class="btn btn-success">
+                                        <i class="fas fa-user-graduate"></i>
+                                        Get Professional Coaching
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Enhanced Coaching Feedback -->
+                        <div id="coachingFeedback" class="coaching-workspace hidden">
+                            <div class="coaching-header">
+                                <h3><i class="fas fa-user-graduate"></i> Your Personal English Coach</h3>
+                                <p>Professional analysis and improvement strategies</p>
+                            </div>
+
+                            <div class="coaching-analysis">
+                                
+                                <!-- Immediate Feedback -->
+                                <div class="coaching-card positive-feedback">
+                                    <div class="card-icon">
+                                        <i class="fas fa-thumbs-up"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h4>Excellent Work!</h4>
+                                        <p id="immediateFeedback">Your effort and progress are commendable. Keep up the excellent work!</p>
+                                    </div>
+                                </div>
+
+                                <!-- Detailed Analysis -->
+                                <div class="coaching-card analysis-feedback">
+                                    <div class="card-icon">
+                                        <i class="fas fa-search"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h4>Detailed Analysis</h4>
+                                        <div class="analysis-grid">
+                                            <div class="analysis-item">
+                                                <h5><i class="fas fa-volume-up"></i> Pronunciation</h5>
+                                                <p id="pronunciationTips">Your pronunciation shows good clarity. Focus on stress patterns for enhanced natural flow.</p>
+                                            </div>
+                                            <div class="analysis-item">
+                                                <h5><i class="fas fa-book-open"></i> Vocabulary</h5>
+                                                <p id="vocabularyTips">Good word choice. Try incorporating more advanced synonyms and expressions.</p>
+                                            </div>
+                                            <div class="analysis-item">
+                                                <h5><i class="fas fa-stream"></i> Fluency</h5>
+                                                <p id="fluencyTips">Natural speech flow with room for improvement in transition smoothness.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Corrections & Improvements -->
+                                <div class="coaching-card corrections-feedback">
+                                    <div class="card-icon">
+                                        <i class="fas fa-edit"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h4>Corrections & Improvements</h4>
+                                        <div id="correctionsList" class="corrections-enhanced">
+                                            <!-- Corrections will be populated here -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Encouragement & Next Steps -->
+                                <div class="coaching-card encouragement-feedback">
+                                    <div class="card-icon">
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h4>Keep Growing!</h4>
+                                        <p id="encouragementText">You're making excellent progress! Your dedication to improvement is evident.</p>
+                                        <div class="next-challenge-enhanced">
+                                            <h5><i class="fas fa-target"></i> Next Challenge</h5>
+                                            <p id="nextChallenge">Try incorporating more complex sentence structures in your next practice session.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="coaching-actions-enhanced">
+                                <button class="btn btn-primary" id="continuePracticeBtn">
+                                    <i class="fas fa-forward"></i>
+                                    Continue Practice
+                                </button>
+                                <button class="btn btn-secondary" id="changePracticeTypeBtn">
+                                    <i class="fas fa-exchange-alt"></i>
+                                    Change Practice Type
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p id="loadingText">Processing your speech...</p>
+        </div>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
